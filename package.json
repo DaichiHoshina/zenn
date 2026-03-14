@@ -1,0 +1,20 @@
+{
+  "name": "zenn",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "preview": "bunx zenn preview",
+    "new:article": "bun scripts/zenn.ts new",
+    "list": "bun scripts/zenn.ts list",
+    "status": "bun scripts/zenn.ts status"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "zenn-cli": "^0.4.6"
+  }
+}

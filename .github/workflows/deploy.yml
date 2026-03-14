@@ -1,0 +1,13 @@
+name: Deploy to Zenn
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zenn-deploy
+  cancel-in-progress: false
