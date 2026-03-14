@@ -105,14 +105,21 @@ export const shouldResetDeliveryDate = (
 ドメインロジックが純粋関数になったので、Reactに依存しないテストが書けるようになりました。
 
 ```tsx
+const sameCarrierService: ShippingService = {
+    id: "service-b", carrierId: "carrier-a", allowDateSpecification: true,
+};
+const differentCarrierService: ShippingService = {
+    id: "service-c", carrierId: "carrier-b", allowDateSpecification: true,
+};
+
 test("同一キャリアの切替では配達希望日を引き継ぐ", () => {
     const settings = { carrierId: "carrier-a", deliveryDate: "2026-03-20" };
-    expect(shouldResetDeliveryDate(settings, serviceB_sameCarrier)).toBe(false);
+    expect(shouldResetDeliveryDate(settings, sameCarrierService)).toBe(false);
 });
 
 test("異なるキャリアへの切替ではリセットする", () => {
     const settings = { carrierId: "carrier-a", deliveryDate: "2026-03-20" };
-    expect(shouldResetDeliveryDate(settings, serviceC_differentCarrier)).toBe(true);
+    expect(shouldResetDeliveryDate(settings, differentCarrierService)).toBe(true);
 });
 ```
 

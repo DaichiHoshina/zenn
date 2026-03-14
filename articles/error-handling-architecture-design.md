@@ -76,7 +76,7 @@ if err != nil {
 ```go
 orders, err := ecClient.GetOrders(ctx, storeID)
 if err != nil {
-    if isNotFound(err) {
+    if errors.Is(err, domain.ErrNotFound) {
         return u.repo.SoftDeleteByStoreID(ctx, storeID)
     }
     // 403や5xxはDBのデータをフォールバックとして返す

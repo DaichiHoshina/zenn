@@ -105,7 +105,9 @@ async function cmdStatus() {
   try {
     const bookDirs = await readdir(BOOKS_DIR);
     bookCount = bookDirs.filter((d) => !d.startsWith(".")).length;
-  } catch {}
+  } catch {
+    // booksディレクトリが存在しない場合は0件
+  }
   console.log(`  本:         ${bookCount}`);
   console.log();
 }
@@ -144,7 +146,7 @@ async function cmdNew() {
       "⚡",
       "🔥",
       "🌟",
-      "🛠️",
+      "🛠",
       "📖",
       "🧪",
       "🎨",
