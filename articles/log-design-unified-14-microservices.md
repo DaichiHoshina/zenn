@@ -1,5 +1,5 @@
 ---
-title: "14マイクロサービスのログ設計を統一した話"
+title: "ERRORログの85%がノイズだったので、14サービスのログ設計を全部見直した"
 emoji: "📋"
 type: "tech"
 topics: ["go", "grpc", "microservices", "logging", "architecture"]

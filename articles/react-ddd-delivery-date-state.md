@@ -1,5 +1,5 @@
 ---
-title: "React × DDD で複雑な状態管理を制御する — 配送サービス切替の設計"
+title: "配達希望日の状態管理が地獄だったので、ReactでDDDした"
 emoji: "🔄"
 type: "tech"
 topics: ["react", "typescript", "ddd", "frontend", "statemanagement"]

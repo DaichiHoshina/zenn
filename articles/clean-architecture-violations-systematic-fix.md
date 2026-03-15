@@ -1,5 +1,5 @@
 ---
-title: "クリーンアーキテクチャ違反を系統的に潰した話"
+title: "外部レビューでCritical指摘が大量に出たので、14サービスの設計を正した"
 emoji: "🏗️"
 type: "tech"
 topics: ["go", "cleanarchitecture", "ddd", "microservices", "refactoring"]

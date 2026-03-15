@@ -1,5 +1,5 @@
 ---
-title: "全サービスのCI/CDを2倍速にした横断改善"
+title: "CIが20分かかってたので、14サービス全部半分にした"
 emoji: "⚡"
 type: "tech"
 topics: ["cicd", "gitlab", "go", "docker", "devops"]
