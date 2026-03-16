@@ -1,6 +1,6 @@
 ---
 title: "EC API障害で注文が消えたので、エラーハンドリングを根本から設計し直した"
-emoji: "🛡️"
+emoji: "🔥"
 type: "tech"
 topics: ["go", "grpc", "microservices", "architecture", "errorhandling"]
 published: false
