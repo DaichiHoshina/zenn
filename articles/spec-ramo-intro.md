@@ -102,7 +102,7 @@ AI に「〜を確認してください」と書いても、確認されない�
 | `spec-gate` | 作業計画書 | 各 PR に想定行数がある / 400 行を超える PR に分割しない理由がある / メソッド名や SQL を記載していない |
 | `phase-gate` | Phase 詳細設計 | 意味が変わる table を読む既存の query を全件洗い出した |
 
-`phase-gate` の例を 1 つ紹介します。論理削除 (`deleted_at`) を追加すると、その table を読む既存の query すべてに条件の追加が必要になります。1 件でも見落とすと、管理画面などで消したはずのデータが表示されてしまいます。そこで、Phase 詳細設計に「table を読む query は合計 n 件」と記載させ、script が数えた件数と一致しなければ FAIL にしています。
+例として `phase-gate` を取り上げます。論理削除 (`deleted_at`) を追加すると、その table を読む既存の query すべてに条件の追加が必要で、1 件でも見落とすと、管理画面などで消したはずのデータが表示されてしまいます。そこで、Phase 詳細設計に「table を読む query は合計 n 件」と記載させ、script が数えた件数と一致しなければ FAIL にしています。
 
 ```text
 FAIL  table-readers  「table を読む query」の節が無い (scripts/table-readers.sh の出力を貼る)
