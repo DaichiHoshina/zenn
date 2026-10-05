@@ -196,7 +196,7 @@ Claude Code の session で、この 2 つを実行します。
 
 scope (user / project) を決めてインストールしたら、導入先の repo で `/specramo:init` を実行します。
 
-repo の `examples/overdue-todos` に、PRD から作業計画書までの記入例があります。
+repo の `examples/overdue-todos` に、PRD から Phase 詳細設計までの記入例があります。
 
 <!-- TODO: 公開前に repo を public にする。private のままだと読者はインストールできない -->
 
