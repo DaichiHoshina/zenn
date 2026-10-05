@@ -33,7 +33,7 @@ published: false
 仕様を PR 単位の Phase に分けて、実装者が理解してから Phase を 1 つずつ進める、spec 駆動開発の Claude Code プラグインです。
 :::
 
-名前は spec + ramo (スペイン語で「枝」) から。
+名前は「スペック」と「クラモ」(サンスクリット語で「順序・段階」) を重ねた造語です。
 
 チームで困っていたことと、その対応はこうです。
 
@@ -164,7 +164,7 @@ Claude Code のセッションで、この 2 つを実行します。
 /plugin install specramo@specramo
 ```
 
-インストールしたら、導入先のリポジトリで `/specramo:init` を実行します。
+あとは導入先のリポジトリで `/specramo:init` を実行します。
 
 **これで準備は OK です！**
 
