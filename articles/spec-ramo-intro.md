@@ -149,6 +149,8 @@ Critical と Warning が 0 件になってから PR を作るので、チーム�
 
 ## 導入
 
+https://github.com/DaichiHoshina/spec-ramo
+
 言語は問いません (同梱の言語指針は Go と TypeScript)。
 
 Claude Code のセッションで、この 2 つを実行します。
