@@ -3,7 +3,7 @@ title: "AIに実装させても理解は手放さない、spec駆動開発プラ
 emoji: "🌿"
 type: "tech"
 topics: ["claudecode", "ai", "設計", "plugin", "specdriven"]
-published: false
+published: true
 ---
 
 ## AI が書いた PR を、自分で説明できますか
