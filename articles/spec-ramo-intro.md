@@ -21,7 +21,7 @@ published: true
 
 速く作れるようになったぶん、**「自分が理解しないまま進んでしまう」こと**がボトルネックになってました。
 
-そこで、仕様駆動開発（SDD）の手順を自分なりにまとめ、Spec Ramo (スペックラモ) というプラグインを作成しました！
+そこで、仕様駆動開発 (Spec-Driven Development、SDD) の手順を自分なりにまとめ、Spec Ramo (スペックラモ) というプラグインを作成しました！
 
 https://github.com/DaichiHoshina/spec-ramo
 
