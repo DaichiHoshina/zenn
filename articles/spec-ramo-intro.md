@@ -2,7 +2,7 @@
 title: "頭が爆発したので、Spec駆動開発プラグインを自作してみた"
 emoji: "🤯"
 type: "tech"
-topics: ["claudecode", "ai", "生成ai", "aiエージェント", "設計"]
+topics: ["claudecode", "ai", "生成ai", "sdd", "仕様駆動開発"]
 published: true
 ---
 
