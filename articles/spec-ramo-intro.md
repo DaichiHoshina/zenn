@@ -2,7 +2,7 @@
 title: "AIに実装させても理解は手放さない、Spec駆動開発プラグイン Spec Ramo を作りました"
 emoji: "🌿"
 type: "tech"
-topics: ["claudecode", "ai", "設計", "plugin", "specdriven"]
+topics: ["claudecode", "ai", "生成ai", "aiエージェント", "設計"]
 published: true
 ---
 
