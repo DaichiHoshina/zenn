@@ -23,6 +23,8 @@ published: true
 
 そこで、Spec 駆動開発の手順を自分なりにまとめ、Spec Ramo (スペックラモ) というプラグインを作成しました！
 
+https://github.com/DaichiHoshina/spec-ramo
+
 ## Spec Ramo とは
 
 :::message
@@ -148,8 +150,6 @@ PR を作る作業も含めて、手を動かす部分は AI に任せて構い�
 Critical と Warning が 0 件になってから PR を作るので、チーム固有の指摘も、人のレビューの前に見つけやすくなります！
 
 ## 導入
-
-https://github.com/DaichiHoshina/spec-ramo
 
 言語は問いません (同梱の言語指針は Go と TypeScript)。
 
