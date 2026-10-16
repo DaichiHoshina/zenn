@@ -3,7 +3,7 @@ title: "頭が爆発したので、仕様駆動開発（SDD）プラグインを
 emoji: "🤯"
 type: "tech"
 topics: ["claudecode", "ai", "生成ai", "sdd", "仕様駆動開発"]
-published: true
+published: false
 ---
 
 ## AI が書いた PR を、自分で説明できますか
