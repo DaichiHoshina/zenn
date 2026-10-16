@@ -2,7 +2,7 @@
 title: "【Claude Code】頭が爆発したので、仕様駆動開発プラグインを自作してみた"
 emoji: "🤯"
 type: "tech"
-topics: ["claudecode", "ai", "生成ai", "sdd", "仕様駆動開発"]
+topics: ["claude", "claudecode", "生成ai", "sdd", "仕様駆動開発"]
 published: true
 ---
 
