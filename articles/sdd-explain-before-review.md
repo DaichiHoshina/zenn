@@ -41,7 +41,7 @@ GitHub の Spec Kit や AWS の Kiro が代表例で、仕様と実装が合っ�
 | 仕様との差を確かめる | converge | correctness (プロパティベーステスト) | AI によるレビュー |
 | **自分の理解を確かめる** | 一覧に無い | 一覧に無い | **説明** |
 
-Spec Kit と Kiro の列は、2026 年 11 月 1 日時点の各リポジトリの README から取りました。
+Spec Kit と Kiro の列は、2026 年 11 月 1 日時点の各リポジトリの README から取りました。Spec Kit は README の手順のコマンド名、Kiro は README の Specs の説明 (requirements、design、tasks) と correctness の説明が出典です。
 「一覧に無い」は、README の工程や機能の一覧に、その工程が独立して載っていないことを指します。
 
 ## 仕様を 3 段に分けて、説明しやすくする
@@ -166,6 +166,11 @@ func Confirm(ctx context.Context, tx *sql.Tx, orderID, itemID int64, qty int) er
 
 この例では、呼び出し元がトランザクションを持つ設計に合わせて、`*sql.Tx` を受け取る形に修正しました。
 あわせて、商品と数量は引数で受け取らず注文の行から読み、受け入れ条件の 3 (保留中でない注文) を満たすように、更新した行数も確かめるようにしています。
+
+最初に注文を読む `SELECT` は、`FOR UPDATE` を付けない通常の読み取りなので、ロックを取りません。
+ロックを取るのは在庫の `SELECT ... FOR UPDATE` と、その後の 2 つの `UPDATE` なので、ロックの順番は在庫、注文のままです。
+同じ注文を同時に確定すると、最初の読み取りでは両方が「保留中」と読めます。
+二重の確定を防いでいるのは最後の `UPDATE` の `status = 'pending'` の条件で、後から来た処理は更新が 0 行になってエラーを返し、呼び出し元が在庫の減算ごと rollback します。
 
 :::details 修正後のコード (Go)
 ```go
