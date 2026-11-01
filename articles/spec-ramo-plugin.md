@@ -21,11 +21,12 @@ published: true
 
 速く作れるようになったぶん、**「自分が理解しないまま進んでしまう」こと**がボトルネックになってました。
 
-そこで、仕様駆動開発 (Spec-Driven Development、SDD) の手順を自分なりにまとめ、Spec Ramo (スペックラモ) という Claude Code のプラグインを作成しました！
+そこで、仕様駆動開発 (Spec-Driven Development、SDD) の手順を自分なりにまとめ、sdd という Claude Code のプラグインを作成しました！
+自作のプラグインをまとめた配布元 daidai から入れられます。
 
-https://github.com/DaichiHoshina/spec-ramo
+https://github.com/DaichiHoshina/daidai
 
-## Spec Ramo とは
+## sdd とは
 
 :::message
 仕様を PR 単位の Phase に分けて、実装者が理解してから Phase を 1 つずつ進める、**仕様駆動開発の Claude Code プラグイン**です。
@@ -41,11 +42,11 @@ https://github.com/DaichiHoshina/spec-ramo
 
 困っていたことと、その対応が以下になります。
 
-| 困りごと | Spec Ramo での対応 |
+| 困りごと | sdd での対応 |
 |---|---|
 | PR が大きく、**読むのに時間がかかる** | 1 Phase = 1 PR にし、変更の上限 400 行 (テスト除く) をスクリプトで検査する (上限は設定で変えられる) |
 | 仕様で決めていなかった点に、**実装やレビューで気づく** | 実装の前に Design Doc で、見える動きを受け入れ条件の表に固定する |
-| 実装者より先に、**レビュワーが問題に気づく** | 実装の前後に `/specramo:explain` で Claude Code に説明してもらい、コードへの理解を深めて、問題点を事前に見つける |
+| 実装者より先に、**レビュワーが問題に気づく** | 実装の前後に `/sdd:explain` で Claude Code に説明してもらい、コードへの理解を深めて、問題点を事前に見つける |
 | 規約や命名の指摘で、**レビューの往復が増える** | プロジェクトの規約の観点で AI がレビューし、規約や命名の指摘はレビュー依頼の前に解決しておく |
 
 ## 一般的な仕様駆動開発との違い
@@ -54,14 +55,14 @@ https://github.com/DaichiHoshina/spec-ramo
 
 代表例は GitHub の Spec Kit と AWS の Kiro ですね。
 
-| 工程 | Spec Kit | Kiro | Spec Ramo |
+| 工程 | Spec Kit | Kiro | sdd |
 |---|---|---|---|
-| 要件を決める | specify | requirements | `/specramo:prd`・`/specramo:design` |
-| 設計する | plan | design | `/specramo:design`・`/specramo:phase-design` |
-| 作業に分ける | tasks | tasks | `/specramo:plan` |
-| 実装する | implement | タスク実行 | `/specramo:implement` |
-| 差を確認する | converge | 工程に無い | `/specramo:review` |
-| 理解を確認する | 工程に無い | 工程に無い | `/specramo:explain` |
+| 要件を決める | specify | requirements | `/sdd:prd`・`/sdd:design` |
+| 設計する | plan | design | `/sdd:design`・`/sdd:phase-design` |
+| 作業に分ける | tasks | tasks | `/sdd:plan` |
+| 実装する | implement | タスク実行 | `/sdd:implement` |
+| 差を確認する | converge | 工程に無い | `/sdd:review` |
+| 理解を確認する | 工程に無い | 工程に無い | `/sdd:explain` |
 
 「工程に無い」は、2026 年 10 月時点の README の工程の一覧に無いことを指します。
 
@@ -73,16 +74,16 @@ https://github.com/DaichiHoshina/spec-ramo
 
 | 順番 | やること | コマンド | 詳細 |
 |---|---|---|---|
-| 1 | 準備 | `/specramo:init` | 設定ファイルと成果物の置き場所を作る |
-| 2 | 要件 | `/specramo:prd` | 対話で要件を集めて PRD を作る |
-| 3 | 設計 | `/specramo:design` | 受け入れ条件の表で振る舞いを固定した Design Doc を作る |
-| 4 | 計画 | `/specramo:plan` | Design Doc を 1 Phase = 1 PR の作業計画書に分ける |
-| 5 | 詳細設計 | `/specramo:phase-design` | Phase 1 つの実装方法を、既存コードを調べてから決める |
-| 6 | 設計の説明 | `/specramo:explain` | 実装前に Phase の設計を説明する |
-| 7 | 実装 | `/specramo:implement` | Phase を 1 つ実装し、完了条件をコマンドで確認する |
-| 8 | レビュー | `/specramo:review` | 差分を 4 観点で並列にレビューする |
-| 9 | コードの説明 | `/specramo:explain` | PR を draft で作ってから、差分のコードの説明と自分の認識を突き合わせる |
-| - | 進み具合 | `/specramo:status` | Phase の進み具合と、この後に実行するコマンドを表示する |
+| 1 | 準備 | `/sdd:init` | 設定ファイルと成果物の置き場所を作る |
+| 2 | 要件 | `/sdd:prd` | 対話で要件を集めて PRD を作る |
+| 3 | 設計 | `/sdd:design` | 受け入れ条件の表で振る舞いを固定した Design Doc を作る |
+| 4 | 計画 | `/sdd:plan` | Design Doc を 1 Phase = 1 PR の作業計画書に分ける |
+| 5 | 詳細設計 | `/sdd:phase-design` | Phase 1 つの実装方法を、既存コードを調べてから決める |
+| 6 | 設計の説明 | `/sdd:explain` | 実装前に Phase の設計を説明する |
+| 7 | 実装 | `/sdd:implement` | Phase を 1 つ実装し、完了条件をコマンドで確認する |
+| 8 | レビュー | `/sdd:review` | 差分を 4 観点で並列にレビューする |
+| 9 | コードの説明 | `/sdd:explain` | PR を draft で作ってから、差分のコードの説明と自分の認識を突き合わせる |
+| - | 進み具合 | `/sdd:status` | Phase の進み具合と、この後に実行するコマンドを表示する |
 
 1〜4 は最初に 1 回だけ、5〜9 は Phase ごとに繰り返します。
 
@@ -132,7 +133,7 @@ PR を作る作業も含めて、手を動かす部分は AI に任せて構い�
 
 AI が書いたコードを、レビューの前に自分の言葉で説明できるようにするための工程です。
 
-`/specramo:explain` は、実装前と実装後で説明する中身が変わります。
+`/sdd:explain` は、実装前と実装後で説明する中身が変わります。
 
 - 実装前: どの層にどの責務を置くか、なぜその設計にしたか、処理がどの順序で進むか
 - 実装後: どの関数が何を受け取り何を返すか、テストが何を保証するか
@@ -146,7 +147,7 @@ AI が書いたコードを、レビューの前に自分の言葉で説明で�
 
 規約違反や見落としを、人のレビューの前に見つけるための仕組みです。
 
-`/specramo:review` は、観点ごとに別のサブエージェントを、Claude Code 上で並列に起動します。
+`/sdd:review` は、観点ごとに別のサブエージェントを、Claude Code 上で並列に起動します。
 
 | エージェント | 確認すること |
 |---|---|
@@ -165,11 +166,11 @@ AI が書いたコードを、レビューの前に自分の言葉で説明で�
 Claude Code のセッションで、この 2 つを実行します。
 
 ```text
-/plugin marketplace add DaichiHoshina/spec-ramo
-/plugin install specramo@specramo
+/plugin marketplace add DaichiHoshina/daidai
+/plugin install sdd@daidai
 ```
 
-スコープ (user / project) を決めてインストールしたら、導入先のリポジトリで `/specramo:init` を実行します。
+スコープ (user / project) を決めてインストールしたら、導入先のリポジトリで `/sdd:init` を実行します。
 
 **これで準備は OK です！**
 
@@ -201,7 +202,7 @@ Claude Code のセッションで、この 2 つを実行します。
 
 AI に任せる範囲が広がるほど、設計やコードを**自分がどれだけ速く理解できるか**が大事になると思ってます。
 
-Spec Ramo はまだ試作の段階で、これからもブラッシュアップを続けます。
+sdd はまだ試作の段階で、これからもブラッシュアップを続けます。
 
 AI で実装は速くなったのに、レビューで止まってしまう人がいたら、ぜひ一度試してみて、ご意見をいただけるとうれしいです！
 

@@ -187,7 +187,7 @@ AI の返答を読んでいて「ん？」と思ったら、その語をコピ�
 
 :::message
 このフックは自分の設定で、後で紹介する jp-lint には含まれていません。
-jp-lint は、書き終えた文書を AI に点検させるスキルです。
+jp-lint は、書き終えた文書を AI に点検させるプラグインです。
 :::
 
 ### 4. 過去の文書も書き換える
@@ -204,9 +204,9 @@ AI は、リポジトリにある既存の文書を参考にして書きます�
 
 ## 自分の現場で試すなら
 
-辞書と検査のスクリプトは、jp-lint というスキル (Claude Code に作業の手順を渡す仕組み) にまとめて公開しています。
+辞書と検査のスクリプトは、jp-lint というプラグインにまとめて、自作のプラグインの配布元 daidai で公開しています。
 
-https://github.com/DaichiHoshina/jp-lint
+https://github.com/DaichiHoshina/daidai
 
 ただ、この辞書は自分が引っかかった語の集まりです。
 なので、そのまま使うより、自分が引っかかった語を足していくのがおすすめです。
@@ -220,7 +220,13 @@ jp-lint では、自分で足した語と除いた語を、同梱の辞書とは
 - canonical
 ```
 
-リポジトリを clone して `scripts/install.sh` を実行すると、Claude Code のスキルの置き場所に配置されます。
+Claude Code で次の 2 行を実行すると入ります。
+
+```text
+/plugin marketplace add DaichiHoshina/daidai
+/plugin install jp-lint@daidai
+```
+
 あとは AI に「この文書を点検して」と頼むだけです。
 
 ## 使ってみてどうだったか
