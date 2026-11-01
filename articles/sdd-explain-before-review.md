@@ -51,10 +51,66 @@ AI のおかげで、実装そのものは速くなりました。
 答えは折りたたんであるので、先に自分で考えてから開きます。
 答えられなかった問いが、自分の理解の足りないところです。
 
-ただ、説明も確認の問いも同じ AI が作るので、説明そのものが間違っていれば、一緒に間違えて納得してしまいます。
-<!-- TODO: 説明の誤りを、差分・呼び出し元・テスト結果との照合で見抜いているかを本人に確認して、手順を書く (していなければ今後の課題として書く) -->
+大事なのは、AI の説明が正しいかどうかより、**自分の認識と合っているか**です。
+合わなかったときは、AI の説明が間違っていることもあれば、自分の理解が間違っていることもあります。
+どちらにしても、ずれた箇所がレビューで聞かれる箇所なので、コードを読み直すか、AI に聞き返して、ずれが無くなるまで確かめます。
 
-<!-- TODO: 実際の /sdd:explain の出力を 1 つ (渡したもの、返ってきた説明と問いの抜粋、自分が気づいた点) を本人から受け取って載せる。社内の名前や数値は一般的なものに置き換える -->
+たとえば、在庫と注文の更新の順番を揃えて、デッドロックを解消した次の変更があるとします。
+
+:::details 変更したコード (Go)
+```go
+package order
+
+import (
+	"context"
+	"database/sql"
+)
+
+// Confirm は注文を確定する。在庫、注文の順に行をロックしてから更新する。
+func Confirm(ctx context.Context, db *sql.DB, orderID, itemID int64, qty int) error {
+	tx, err := db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	var stock int
+	if err := tx.QueryRowContext(ctx,
+		"SELECT quantity FROM inventories WHERE item_id = ? FOR UPDATE", itemID,
+	).Scan(&stock); err != nil {
+		return err
+	}
+	if stock < qty {
+		return ErrOutOfStock
+	}
+	if _, err := tx.ExecContext(ctx,
+		"UPDATE inventories SET quantity = quantity - ? WHERE item_id = ?", qty, itemID,
+	); err != nil {
+		return err
+	}
+	if _, err := tx.ExecContext(ctx,
+		"UPDATE orders SET status = 'confirmed' WHERE id = ?", orderID,
+	); err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+```
+:::
+
+実装後の説明を頼むと、関数の入出力、処理の順番、なぜこの順番か、テストで確かめることが返ってきて、最後にこんな問いが付きます。
+(自分の環境で実際に出力したものから抜粋しています)
+
+> **理解を確認する問い**
+> 1. 2 つの処理がデッドロックになる、行のロックの取り合いを説明してください。
+> 2. 在庫を読む SELECT に `FOR UPDATE` が必要な理由は何ですか。
+> 3. 注文の更新で失敗したとき、在庫の減算はどうなりますか。
+
+答えを開く前に、自分で答えてみます。
+3 つ目に「在庫は減ったまま」と答えてしまったら、`defer tx.Rollback()` がトランザクションごと取り消すことを理解できていなかった、と分かります。
+
+説明の中には「`ErrOutOfStock` の定義はこのファイルに無く、未確認です」のように、AI が確かめていない点も書かれます。
+そこは自分でコードを開いて確かめるところです。
 
 一度で分からなければ、読み手を変えて説明し直させます。
 入力履歴から、実際に打った言葉を抜き出しました (コマンド名は後で紹介するプラグインの形に揃えています)。
