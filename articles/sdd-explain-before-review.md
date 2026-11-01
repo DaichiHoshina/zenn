@@ -3,7 +3,7 @@ title: "【Claude Code】AI が書いたコードを説明できなかったの�
 emoji: "🤯"
 type: "tech"
 topics: ["claudecode", "ai", "生成ai", "aiエージェント", "仕様駆動開発"]
-published: true
+published: false
 ---
 
 ## AI が書いた PR を、自分で説明できますか
